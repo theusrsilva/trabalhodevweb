@@ -30,6 +30,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/usuario").hasRole("ORG")
                         .requestMatchers(HttpMethod.GET, "/usuario/{id}").hasRole("ORG")
+                        .requestMatchers(HttpMethod.PUT, "/usuario/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/usuario/{id}/cargo").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/recurso").hasRole("ADMIN")

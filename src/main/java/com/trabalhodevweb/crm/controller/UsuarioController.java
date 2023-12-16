@@ -1,6 +1,7 @@
 package com.trabalhodevweb.crm.controller;
 
 import com.trabalhodevweb.crm.model.Cargo;
+import com.trabalhodevweb.crm.model.Recurso;
 import com.trabalhodevweb.crm.model.Usuario;
 import com.trabalhodevweb.crm.model.dto.MudarCargoDTO;
 import com.trabalhodevweb.crm.model.dto.RegistrarUsuarioComCargoDTO;
@@ -45,6 +46,28 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("Cargo inválido");
         }
 
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody Usuario usuario){
+        Usuario newUsuario = usuarioRepository.findById(id).orElse(null);
+        if(newUsuario != null){
+            newUsuario.setNome(usuario.getNome() != null ?usuario.getNome():newUsuario.getNome() );
+            newUsuario.setLogin(usuario.getLogin() != null ? usuario.getLogin(): newUsuario.getLogin());
+            newUsuario.setEmail(usuario.getEmail() != null ? usuario.getEmail(): newUsuario.getEmail());
+            newUsuario.setSenha( usuario.getSenha() != null ?new BCryptPasswordEncoder().encode(usuario.getSenha()): newUsuario.getSenha());
+            usuarioRepository.save(newUsuario);
+            return ResponseEntity.ok(newUsuario);
+        }
+        return ResponseEntity.badRequest().body("Usuário não existe no banco de dados!");
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id){
+        Usuario newUsuario = usuarioRepository.findById(id).orElse(null);
+        if(newUsuario != null){
+            usuarioRepository.delete(newUsuario);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().body("Usuário não existe no banco de dados!");
     }
 
     @PostMapping
