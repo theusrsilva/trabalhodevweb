@@ -9,6 +9,7 @@ import com.trabalhodevweb.crm.repository.RecursoRepository;
 import com.trabalhodevweb.crm.repository.UsuarioRepository;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,26 @@ public class RecursoController {
     @GetMapping("/{id}")
     public Optional<Recurso> show(@PathVariable String id){
         return recursoRepository.findById(id);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Recurso> update(@PathVariable String id, @RequestBody Recurso recurso){
+        Recurso newRecurso = recursoRepository.findById(id).orElse(null);
+        if(newRecurso != null){
+            newRecurso.setEspacos(recurso.getEspacos());
+            newRecurso.setNome(recurso.getNome());
+            recursoRepository.save(newRecurso);
+            return ResponseEntity.ok(newRecurso);
+        }
+        return ResponseEntity.badRequest().body(null);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Recurso> update(@PathVariable String id){
+        Recurso newRecurso = recursoRepository.findById(id).orElse(null);
+        if(newRecurso != null){
+            recursoRepository.delete(newRecurso);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().body(null);
     }
 
     @PostMapping
