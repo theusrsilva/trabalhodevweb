@@ -40,6 +40,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/recurso").hasRole("ORG")
                         .requestMatchers(HttpMethod.POST, "/espaco").hasRole("ORG")
                         .requestMatchers(HttpMethod.GET, "/espaco").hasRole("ORG")
+                        .requestMatchers(HttpMethod.PUT, "/espaco").hasRole("ORG")
+                        .requestMatchers(HttpMethod.DELETE, "/espaco").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

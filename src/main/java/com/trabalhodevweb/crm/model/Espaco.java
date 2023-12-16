@@ -27,9 +27,6 @@ public class Espaco {
     )
     private Set<Recurso> recursos = new HashSet<>();
 
-    @OneToMany(mappedBy = "espaco")
-    private Set<Atividade> atividades;
-
 
     public Espaco(){
 

@@ -54,4 +54,30 @@ public class EspacoController {
         espacoRepository.save(newEspaco);
         return ResponseEntity.ok(newEspaco);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody Espaco espaco){
+        Espaco newEspaco = espacoRepository.findById(id).orElse(null);
+        if(newEspaco != null){
+            newEspaco.setNome(espaco.getNome() !=null? espaco.getNome() : newEspaco.getNome());
+            newEspaco.setLocalizacao(espaco.getLocalizacao() !=null? espaco.getLocalizacao() : newEspaco.getLocalizacao());
+            newEspaco.setCapacidade(espaco.getCapacidade() !=null? espaco.getCapacidade() : newEspaco.getCapacidade());
+            newEspaco.setNome(espaco.getNome() !=null? espaco.getNome() : newEspaco.getNome());
+            espacoRepository.save(newEspaco);
+            return ResponseEntity.ok(newEspaco);
+        }
+        return ResponseEntity.badRequest().body("Espaco não existe no banco de dados!");
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id){
+        Espaco newEspaco = espacoRepository.findById(id).orElse(null);
+        if(newEspaco != null){
+            espacoRepository.delete(newEspaco);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().body("Espaco não existe no banco de dados!");
+    }
+
+
+
 }

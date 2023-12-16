@@ -38,8 +38,7 @@ public class RecursoController {
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody Recurso recurso){
         Recurso newRecurso = recursoRepository.findById(id).orElse(null);
         if(newRecurso != null){
-            newRecurso.setEspacos(recurso.getEspacos());
-            newRecurso.setNome(recurso.getNome());
+            newRecurso.setNome(recurso.getNome() !=null? recurso.getNome() : newRecurso.getNome());
             recursoRepository.save(newRecurso);
             return ResponseEntity.ok(newRecurso);
         }
