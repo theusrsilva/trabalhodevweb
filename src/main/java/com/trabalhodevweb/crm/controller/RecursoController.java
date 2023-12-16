@@ -49,7 +49,7 @@ public class RecursoController {
         Recurso newRecurso = recursoRepository.findById(id).orElse(null);
         if(newRecurso != null){
             recursoRepository.delete(newRecurso);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Recurso deletado com sucesso!");
         }
         return ResponseEntity.badRequest().body("Recurso não existe no banco de dados!");
     }

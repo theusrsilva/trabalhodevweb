@@ -73,7 +73,7 @@ public class EspacoController {
         Espaco newEspaco = espacoRepository.findById(id).orElse(null);
         if(newEspaco != null){
             espacoRepository.delete(newEspaco);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("Espaco deletado com sucesso!");
         }
         return ResponseEntity.badRequest().body("Espaco não existe no banco de dados!");
     }
