@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,29 @@ public class Espaco {
             joinColumns = @JoinColumn(name = "espaco_id"),
             inverseJoinColumns = @JoinColumn(name = "recurso_id")
     )
-    private Set<Recurso> recursos;
+    private Set<Recurso> recursos = new HashSet<>();
+
     @OneToMany(mappedBy = "espaco")
     private Set<Atividade> atividades;
+
+
+    public Espaco(){
+
+    }
+
+    public Espaco(String nome, String localizacao, String capacidade) {
+        this.nome = nome;
+        this.localizacao = localizacao;
+        this.capacidade = capacidade;
+    }
+
+    public void addRecurso(Recurso recurso){
+        this.recursos.add(recurso);
+        recurso.getEspacos().add(this);
+    }
+
+    public void removeRecurso(String recursoId){
+        Recurso recurso = this.recursos.stream().filter(t->getId() == recursoId).findFirst().orElse(null);
+        recurso.getEspacos().remove(this);
+    }
 }

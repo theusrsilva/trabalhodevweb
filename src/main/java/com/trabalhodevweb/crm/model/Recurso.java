@@ -1,9 +1,11 @@
 package com.trabalhodevweb.crm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,6 +19,11 @@ public class Recurso {
     private String id;
     private String nome;
     @ManyToMany(mappedBy = "recursos")
-    private Set<Espaco> espacos;
+    @JsonIgnore
+    private Set<Espaco> espacos = new HashSet<>();
+
+    public Recurso(){
+
+    }
 
 }

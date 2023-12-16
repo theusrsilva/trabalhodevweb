@@ -14,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/recurso")
@@ -23,7 +25,7 @@ public class RecursoController {
     private RecursoRepository recursoRepository;
 
     @GetMapping
-    public Iterable<Recurso> listar(){
+    public List<Recurso> listar(){
         return recursoRepository.findAll();
     }
 
