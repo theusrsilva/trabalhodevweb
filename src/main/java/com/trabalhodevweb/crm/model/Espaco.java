@@ -43,8 +43,7 @@ public class Espaco {
         recurso.getEspacos().add(this);
     }
 
-    public void removeRecurso(String recursoId){
-        Recurso recurso = this.recursos.stream().filter(t->getId() == recursoId).findFirst().orElse(null);
-        recurso.getEspacos().remove(this);
+    public void zeraRecursos(){
+        this.recursos = new HashSet<>();
     }
 }

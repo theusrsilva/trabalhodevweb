@@ -3,6 +3,7 @@ package com.trabalhodevweb.crm.controller;
 import com.trabalhodevweb.crm.model.Espaco;
 import com.trabalhodevweb.crm.model.Recurso;
 import com.trabalhodevweb.crm.model.dto.RegistroEspaçoComRecursoDTO;
+import com.trabalhodevweb.crm.model.dto.SyncRecursosDTO;
 import com.trabalhodevweb.crm.repository.EspacoRepository;
 import com.trabalhodevweb.crm.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,30 @@ public class EspacoController {
             Recurso recurso = recursoRepository.findById(recursoId).orElse(null);
             if (recurso != null) {
                 recursos.add(recurso);
-            } else {
-                return ResponseEntity.badRequest().body("Recurso com ID " + recursoId + " não encontrado");
             }
         }
         newEspaco.setRecursos(recursos);
         espacoRepository.save(newEspaco);
+        return ResponseEntity.ok(newEspaco);
+    }
+    @PostMapping("{id}/syncRecursos")
+    public ResponseEntity<?> syncRecursos(@PathVariable String id, @RequestBody SyncRecursosDTO recursos) {
+        Espaco newEspaco = espacoRepository.findById(id).orElse(null);
+        Set<Recurso> recursosId = new HashSet<>();
+        if(newEspaco !=null){
+            newEspaco.zeraRecursos();
+            if(recursos.recursos() != null) {
+                for (String recursoId : recursos.recursos()) {
+                    Recurso recurso = recursoRepository.findById(recursoId).orElse(null);
+                    if (recurso != null) {
+                        recursosId.add(recurso);
+                    }
+                }
+                newEspaco.setRecursos(recursosId);
+            }
+            espacoRepository.save(newEspaco);
+        }
+
         return ResponseEntity.ok(newEspaco);
     }
 
