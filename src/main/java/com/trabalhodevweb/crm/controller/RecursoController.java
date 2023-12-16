@@ -35,7 +35,7 @@ public class RecursoController {
         return recursoRepository.findById(id);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Recurso> update(@PathVariable String id, @RequestBody Recurso recurso){
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody Recurso recurso){
         Recurso newRecurso = recursoRepository.findById(id).orElse(null);
         if(newRecurso != null){
             newRecurso.setEspacos(recurso.getEspacos());
@@ -43,16 +43,16 @@ public class RecursoController {
             recursoRepository.save(newRecurso);
             return ResponseEntity.ok(newRecurso);
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.badRequest().body("Recurso não existe no banco de dados!");
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Recurso> update(@PathVariable String id){
+    public ResponseEntity<?> update(@PathVariable String id){
         Recurso newRecurso = recursoRepository.findById(id).orElse(null);
         if(newRecurso != null){
             recursoRepository.delete(newRecurso);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.badRequest().body(null);
+        return ResponseEntity.badRequest().body("Recurso não existe no banco de dados!");
     }
 
     @PostMapping
