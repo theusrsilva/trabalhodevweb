@@ -1,19 +1,20 @@
 package com.trabalhodevweb.crm.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
+public enum Cargo {
+        ADMINISTRADOR("administrador"),
+        ORGANIZADOR("organizador"),
+        USUARIO("usuario");
 
-import java.util.Objects;
+        private String cargo;
 
-@Entity
-@Data
-public class Cargo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
-    private String nome;
+        Cargo(String cargo){
+            this.cargo = cargo;
+        }
+
+        public String getCargo(){
+            return cargo;
+        }
+
+
 
 }
-
-
