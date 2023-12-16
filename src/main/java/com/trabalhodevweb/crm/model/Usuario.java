@@ -22,7 +22,9 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(unique=true)
     private String login;
+    @Column(unique=true)
     private String email;
     private String nome;
     private String senha;

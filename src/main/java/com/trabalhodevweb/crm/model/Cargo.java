@@ -16,5 +16,14 @@ public enum Cargo {
         }
 
 
+    public static boolean contains(String value) {
+        for (Cargo cargo : Cargo.values()) {
+            if (cargo.getCargo().equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
