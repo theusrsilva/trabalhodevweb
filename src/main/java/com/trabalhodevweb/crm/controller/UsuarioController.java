@@ -47,17 +47,9 @@ public class UsuarioController {
 
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Usuario store(@RequestBody Usuario usuario){
-//        return usuarioRepository.save(usuario);
-//    }
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Usuario> store(@RequestBody RegistrarUsuarioComCargoDTO data) {
-
         if (EnumUtils.isValidEnum(Cargo.class, data.cargo())) {
             Cargo permissao = Cargo.valueOf(data.cargo());
             String senhaEncriptada = new BCryptPasswordEncoder().encode(data.senha());
