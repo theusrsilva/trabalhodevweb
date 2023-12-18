@@ -24,19 +24,13 @@ import java.util.Optional;
 public class EdicaoController {
     @Autowired
     private EdicaoRepository edicaoRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     @GetMapping
     public ResponseEntity<?> listar(){
-        try{
             List<Edicao> result = edicaoRepository.findAll();
             System.out.println("teste: "+result);
-            return ResponseEntity.ok(result.get(0));
-        }catch (HttpMessageNotWritableException e){
-            System.out.println("causa: "+e.getCause());
-            System.out.println("mensagem: "+e.getMessage());
-            System.out.println("classe: "+e.getClass());
-            return ResponseEntity.badRequest().body("Evento não existe no banco de dados!");
-        }
-
+            return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -44,18 +38,26 @@ public class EdicaoController {
         Optional<Edicao> result = edicaoRepository.findById(id);
         return result;
     }
-//    @PutMapping("/{id}")
-//    public ResponseEntity<?> update(@PathVariable String id, @RequestBody Edicao edicao){
-//        Edicao newEdicao = edicaoRepository.findById(id).orElse(null);
-//        if(newEdicao != null){
-//            newEdicao.setNome(evento.getNome() !=null? evento.getNome() : newEvento.getNome());
-//            newEdicao.setDescricao(evento.getDescricao() !=null? evento.getDescricao() : newEvento.getDescricao());
-//            newEdicao.setSigla(evento.getSigla() !=null? evento.getSigla() : newEvento.getSigla());
-//            eventoRepository.save(newEvento);
-//            return ResponseEntity.ok(newEvento);
-//        }
-//        return ResponseEntity.badRequest().body("Evento não existe no banco de dados!");
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @RequestBody StoreEdicaoDTO edicao){
+        Edicao newEdicao = edicaoRepository.findById(id).orElse(null);
+        if(newEdicao != null){
+            newEdicao.setCidade(edicao.cidade() !=null? edicao.cidade() : newEdicao.getCidade());
+            newEdicao.setAno(edicao.ano() !=null? edicao.ano() : newEdicao.getAno());
+            newEdicao.setData_inicial(edicao.data_inicial() !=null? edicao.data_inicial() : newEdicao.getData_inicial());
+            newEdicao.setData_final(edicao.data_final() !=null? edicao.data_final() : newEdicao.getData_final());
+            newEdicao.setNumero(edicao.numero() !=null? edicao.numero() : newEdicao.getNumero());
+            if(edicao.responsavel_id()!= null){
+                Usuario usuario = usuarioRepository.findById(id).orElse(null);
+                if(usuario !=null){
+                    newEdicao.setResponsavel(usuario);
+                }
+            }
+            edicaoRepository.save(newEdicao);
+            return ResponseEntity.ok(newEdicao);
+        }
+        return ResponseEntity.badRequest().body("Edicao não existe no banco de dados!");
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id){
         Edicao newEdicao = edicaoRepository.findById(id).orElse(null);
