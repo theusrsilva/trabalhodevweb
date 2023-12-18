@@ -16,13 +16,17 @@ public class Atividade {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String localizacao;
-    private String capacidade;
+
     @ManyToOne
     @JoinColumn(name = "espaco_id", nullable = false)
     private Espaco espaco;
+
+    @ManyToOne
+    private Edicao edicao;
+
     @ManyToMany(mappedBy = "atividades")
     private Set<Usuario> usuarios;
+
 
 
 

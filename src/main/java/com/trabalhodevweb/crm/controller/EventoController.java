@@ -1,12 +1,18 @@
 package com.trabalhodevweb.crm.controller;
 
+import com.trabalhodevweb.crm.model.Edicao;
 import com.trabalhodevweb.crm.model.Evento;
 import com.trabalhodevweb.crm.model.Recurso;
+import com.trabalhodevweb.crm.model.Usuario;
+import com.trabalhodevweb.crm.model.dto.StoreEdicaoDTO;
+import com.trabalhodevweb.crm.repository.EdicaoRepository;
 import com.trabalhodevweb.crm.repository.EventoRepository;
 import com.trabalhodevweb.crm.repository.RecursoRepository;
+import com.trabalhodevweb.crm.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +23,10 @@ import java.util.Optional;
 public class EventoController {
     @Autowired
     private EventoRepository eventoRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private EdicaoRepository edicaoRepository;
 
     @GetMapping
     public List<Evento> listar(){
@@ -55,4 +65,24 @@ public class EventoController {
         Evento newevento = eventoRepository.save(evento);
         return ResponseEntity.ok(newevento);
     }
+
+    @PostMapping("/{id}/edicao")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> store(@PathVariable String id, @RequestBody StoreEdicaoDTO eventoReq) {
+            Usuario usuario = usuarioRepository.findById(eventoReq.responsavel_id()).orElse(null);
+            if (usuario == null) {
+                return ResponseEntity.badRequest().body("Usuario não existe no banco de dados!");
+            }
+            Evento evento = eventoRepository.findById(id).orElse(null);
+            if (evento == null) {
+                return ResponseEntity.badRequest().body("Evento não existe no banco de dados!");
+            }
+
+            Edicao newEdicao = new Edicao(eventoReq, usuario, evento);
+            Edicao newEdicaosaved = edicaoRepository.save(newEdicao);
+            return ResponseEntity.ok("Edicão_id: "+newEdicaosaved.getId());
+    }
+
+
+
 }

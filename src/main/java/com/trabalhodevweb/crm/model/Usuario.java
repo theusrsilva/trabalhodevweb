@@ -47,6 +47,9 @@ public class Usuario implements UserDetails {
     )
     private Set<Atividade> atividades;
 
+    @OneToMany(mappedBy = "responsavel")
+    private Set<Edicao> edicoes;
+
     public Usuario() {
 
     }
