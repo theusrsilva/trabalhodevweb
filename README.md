@@ -2,6 +2,7 @@
 primeiro precisara de um baco de dados mysql rodando 
 no arquivo application.properties configurar as variaveis de ambiente
 EX:
+
 spring.jpa.hibernate.ddl-auto=update
 
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/trabalho-devweb
