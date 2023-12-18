@@ -1,13 +1,10 @@
 package com.trabalhodevweb.crm.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.trabalhodevweb.crm.model.Edicao;
-import com.trabalhodevweb.crm.model.Evento;
-import com.trabalhodevweb.crm.model.Usuario;
+import com.trabalhodevweb.crm.model.*;
+import com.trabalhodevweb.crm.model.dto.StoreAtividadeDTO;
 import com.trabalhodevweb.crm.model.dto.StoreEdicaoDTO;
-import com.trabalhodevweb.crm.repository.EdicaoRepository;
-import com.trabalhodevweb.crm.repository.EventoRepository;
-import com.trabalhodevweb.crm.repository.UsuarioRepository;
+import com.trabalhodevweb.crm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.http.HttpStatus;
@@ -26,10 +23,16 @@ public class EdicaoController {
     private EdicaoRepository edicaoRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private EspacoRepository espacoRepository;
+    @Autowired
+    private AtividadeRepository atividadeRepository;
+
+
+
     @GetMapping
     public ResponseEntity<?> listar(){
             List<Edicao> result = edicaoRepository.findAll();
-            System.out.println("teste: "+result);
             return ResponseEntity.ok(result);
     }
 
@@ -66,6 +69,22 @@ public class EdicaoController {
             return ResponseEntity.ok("Edicao deletado com sucesso!");
         }
         return ResponseEntity.badRequest().body("Edicao não existe no banco de dados!");
+    }
+
+    @PostMapping("/{id}/atividade")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> store(@PathVariable String id, @RequestBody StoreAtividadeDTO atividadeReq) {
+        Espaco espaco = espacoRepository.findById(atividadeReq.espaco()).orElse(null);
+        if (espaco == null) {
+            return ResponseEntity.badRequest().body("Espaco não existe no banco de dados!");
+        }
+        Edicao edicao = edicaoRepository.findById(id).orElse(null);
+        if (edicao == null) {
+            return ResponseEntity.badRequest().body("Edicao não existe no banco de dados!");
+        }
+        Atividade newAtividade = new Atividade(atividadeReq.nome(), edicao, espaco);
+        Atividade newAtividadesaved = atividadeRepository.save(newAtividade);
+        return ResponseEntity.ok(newAtividadesaved);
     }
 
 

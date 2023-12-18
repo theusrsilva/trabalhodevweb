@@ -18,18 +18,30 @@ public class Atividade {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String nome;
+
     @ManyToOne
     @JoinColumn(name = "espaco_id", nullable = false)
-    @JsonIgnore
     private Espaco espaco;
 
     @ManyToOne
     @JsonIgnore
     private Edicao edicao;
 
-    @ManyToMany(mappedBy = "atividades")
-    @JsonIgnore
-    private Set<Usuario> usuarios;
+//    @ManyToMany(mappedBy = "atividades")
+//    @JsonIgnore
+//    private Set<Usuario> usuarios;
+
+    public Atividade(){
+
+    }
+
+    public Atividade(String nome, Edicao edicao, Espaco espaco){
+        this.nome = nome;
+        this.edicao = edicao;
+        this.espaco = espaco;
+
+    }
 
 
 

@@ -38,7 +38,6 @@ public class Edicao {
     private Usuario responsavel;
 
     @OneToMany(mappedBy = "edicao")
-    @JsonIgnore
     private List<Atividade> atividades;
 
     public Edicao(){

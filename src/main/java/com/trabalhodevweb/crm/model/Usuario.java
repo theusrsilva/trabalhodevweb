@@ -40,14 +40,14 @@ public class Usuario implements UserDetails {
         this.nome = nome;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "usuarios_atividades",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "atividade_id")
-    )
-    @JsonIgnore
-    private Set<Atividade> atividades;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "usuarios_atividades",
+//            joinColumns = @JoinColumn(name = "usuario_id"),
+//            inverseJoinColumns = @JoinColumn(name = "atividade_id")
+//    )
+//    @JsonIgnore
+//    private Set<Atividade> atividades;
 
     @OneToMany(mappedBy = "responsavel")
     @JsonIgnore

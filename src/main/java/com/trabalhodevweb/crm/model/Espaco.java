@@ -26,7 +26,6 @@ public class Espaco {
             joinColumns = @JoinColumn(name = "espaco_id"),
             inverseJoinColumns = @JoinColumn(name = "recurso_id")
     )
-    @JsonIgnore
     private Set<Recurso> recursos = new HashSet<>();
 
     @OneToMany(mappedBy = "espaco")
