@@ -40,3 +40,6 @@ api.security.token.secret=${JWT_SECRET:minha-chave}
 - Crud de atividade de edição de eventos
 
 
+![image](https://github.com/theusrsilva/trabalhodevweb/assets/18399004/27b80340-227e-4b8e-b48e-3ab070905dca)
+
+
