@@ -1,5 +1,6 @@
 package com.trabalhodevweb.crm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,12 +20,15 @@ public class Atividade {
 
     @ManyToOne
     @JoinColumn(name = "espaco_id", nullable = false)
+    @JsonIgnore
     private Espaco espaco;
 
     @ManyToOne
+    @JsonIgnore
     private Edicao edicao;
 
     @ManyToMany(mappedBy = "atividades")
+    @JsonIgnore
     private Set<Usuario> usuarios;
 
 

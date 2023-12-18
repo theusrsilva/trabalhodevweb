@@ -1,5 +1,6 @@
 package com.trabalhodevweb.crm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,11 @@ public class Espaco {
             joinColumns = @JoinColumn(name = "espaco_id"),
             inverseJoinColumns = @JoinColumn(name = "recurso_id")
     )
+    @JsonIgnore
     private Set<Recurso> recursos = new HashSet<>();
 
     @OneToMany(mappedBy = "espaco")
+    @JsonIgnore
     private Set<Atividade> atividades;
 
 

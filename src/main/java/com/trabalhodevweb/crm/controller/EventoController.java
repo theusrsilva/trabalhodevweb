@@ -80,7 +80,7 @@ public class EventoController {
 
             Edicao newEdicao = new Edicao(eventoReq, usuario, evento);
             Edicao newEdicaosaved = edicaoRepository.save(newEdicao);
-            return ResponseEntity.ok("Edicão_id: "+newEdicaosaved.getId());
+            return ResponseEntity.ok(newEdicaosaved);
     }
 
 

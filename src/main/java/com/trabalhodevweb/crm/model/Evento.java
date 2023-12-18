@@ -1,5 +1,6 @@
 package com.trabalhodevweb.crm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Evento {
     private String descricao;
 
     @OneToMany(mappedBy = "evento")
+    @JsonIgnore
     private List<Edicao> edicoes;
 
 

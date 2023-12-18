@@ -1,5 +1,6 @@
 package com.trabalhodevweb.crm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -45,9 +46,11 @@ public class Usuario implements UserDetails {
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "atividade_id")
     )
+    @JsonIgnore
     private Set<Atividade> atividades;
 
     @OneToMany(mappedBy = "responsavel")
+    @JsonIgnore
     private Set<Edicao> edicoes;
 
     public Usuario() {
