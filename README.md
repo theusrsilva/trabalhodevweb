@@ -20,7 +20,7 @@ api.security.token.secret=${JWT_SECRET:minha-chave}
 
 ### Algumas explicações
 
-- Na raiz do projeto segue o arquivo do insomnia com todos os exemplos de rotas do projeto, so baixar e importar a collection
+- Na raiz do projeto segue o arquivo do insomnia(Insomnia_2023-12-18.json) com todos os exemplos de rotas do projeto, so baixar e importar a collection
 - Se rodar a rota seeder ja popula as tabelas com alguns dados de teste
 - Nela é criado um usuario: usuarioTeste e senha: 123456789 com permissão de admin
 
