@@ -12,6 +12,12 @@ spring.datasource.password=root
 
 api.security.token.secret=${JWT_SECRET:minha-chave}
 
+### Aplicações que eu utilizei
+- Inttelij
+- Dbeaver
+- insomnia
+- Docker para o banco de dados
+
 ### Algumas explicações
 
 - Na raiz do projeto segue o arquivo do insomnia com todos os exemplos de rotas do projeto, so baixar e importar a collection
