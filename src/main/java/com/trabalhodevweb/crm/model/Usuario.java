@@ -32,13 +32,7 @@ public class Usuario implements UserDetails {
 
     private Cargo cargo;
 
-    public Usuario(String login,String nome, String senha, String email, Cargo cargo){
-        this.login = login;
-        this.senha = senha;
-        this.email = email;
-        this.cargo = cargo;
-        this.nome = nome;
-    }
+
 
 //    @ManyToMany
 //    @JoinTable(
@@ -50,8 +44,15 @@ public class Usuario implements UserDetails {
 //    private Set<Atividade> atividades;
 
     @OneToMany(mappedBy = "responsavel")
-    @JsonIgnore
     private Set<Edicao> edicoes;
+
+    public Usuario(String login,String nome, String senha, String email, Cargo cargo){
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.cargo = cargo;
+        this.nome = nome;
+    }
 
     public Usuario() {
 

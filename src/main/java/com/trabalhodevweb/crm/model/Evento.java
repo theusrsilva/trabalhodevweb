@@ -22,7 +22,6 @@ public class Evento {
     private String descricao;
 
     @OneToMany(mappedBy = "evento")
-    @JsonIgnore
     private List<Edicao> edicoes;
 
 
