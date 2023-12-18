@@ -26,4 +26,8 @@ public class Recurso {
 
     }
 
+    public Recurso(String nome){
+        this.nome = nome;
+    }
+
 }

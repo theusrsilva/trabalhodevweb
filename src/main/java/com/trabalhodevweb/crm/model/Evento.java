@@ -24,5 +24,15 @@ public class Evento {
     @OneToMany(mappedBy = "evento")
     private List<Edicao> edicoes;
 
+    public Evento(){
+
+    }
+
+    public Evento(String nome, String sigla, String descricao){
+        this.sigla = sigla;
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
 
 }

@@ -44,6 +44,12 @@ public class Espaco {
         this.localizacao = localizacao;
         this.capacidade = capacidade;
     }
+    public Espaco(String nome, String localizacao, String capacidade,Recurso recurso) {
+        this.nome = nome;
+        this.localizacao = localizacao;
+        this.capacidade = capacidade;
+        this.recursos.add(recurso);
+    }
 
     public void addRecurso(Recurso recurso){
         this.recursos.add(recurso);

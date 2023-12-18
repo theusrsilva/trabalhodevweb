@@ -54,6 +54,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/atividade").hasRole("ORG")
                         .requestMatchers(HttpMethod.PUT, "/atividade").hasRole("ORG")
                         .requestMatchers(HttpMethod.DELETE, "/atividade").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/seeder").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

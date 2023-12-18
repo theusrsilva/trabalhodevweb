@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -50,6 +52,22 @@ public class Edicao {
         this.numero = storeEdicaoDTO.numero();
         this.responsavel = usuario;
         this.evento = evento;
+    }
+
+    public Edicao(String ano, String data_final,String data_inicial, String cidade, String numero, Usuario usuario, Evento evento){
+        try{
+            this.ano = ano;
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            this.data_final = formato.parse(data_final);
+            this.data_inicial = formato.parse(data_inicial);
+            this.cidade = cidade;
+            this.numero = numero;
+            this.responsavel = usuario;
+            this.evento = evento;
+        }catch (ParseException e){
+            System.out.println("data em formato errado");
+        }
+
     }
 
 }
